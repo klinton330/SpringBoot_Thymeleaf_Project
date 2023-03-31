@@ -16,6 +16,7 @@ public class EmployeeController {
         return employeeService.createNewEmployee(employee);
     }
 
+    //Get Mapping
     @GetMapping("/")
     public String getAllEmployee(Model model) {
          model.addAttribute("allEmployees",employeeService.getAllEmployee());
