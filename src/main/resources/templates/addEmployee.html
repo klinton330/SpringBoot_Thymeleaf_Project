@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en"xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+  <title>Add Employee</title>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<style>
+
+    h1
+    {
+        margin: 20px;
+    }
+    .form-group
+    {
+        margin-bottom: 20px;
+    }
+    label
+    {
+        font-weight: bold;
+    }
+    p
+    {
+    color:red
+    }
+
+</style>
+<body>
+
+<nav class="navbar  bg-dark navbar-expand-lg bg-body-tertiary"  data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Employee Management Portal</a>
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link" aria-current="page" th:href="@{/index}">Home</a>
+        <a class="nav-link active" th:href="@{/addEmployee}">Add Employee</a>
+        <a class="nav-link " href="http://localhost:8082/listEmployee">View Employee</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<h1 style="text-align: center;">Add Employee Form</h1>
+<div  style="display: flex; align-items: center;justify-content: center;">
+
+  <div class="col-md-4">
+    <form class="card p-5 bg-light" th:action="@{/postEmployee}" th:object ="${employee}" method="POST">
+      <div class="form-group">
+        <label class="font-weight-bold" >Name</label>
+        <input type="text" class="form-control"  th:field="*{name}"  placeholder="Name"/>
+         <p th-if="${#fields.hasErrors('name'}" th:errors="*{name}"></p>
+      </div>
+      <div class="form-group">
+        <label >Email</label>
+        <input type="email" class="form-control" th:field="*{email}" placeholder="Email"/>
+        <p th-if="${#fields.hasErrors('email'}" th:errors="*{email}"></p>
+      </div>
+      <div class="form-group">
+        <label >City</label>
+        <input type="text" class="form-control"  th:field="*{city}"  placeholder="City"/>
+        <p th-if="${#fields.hasErrors('city'}" th:errors="*{city}"></p>
+      </div>
+      <div class="form-group">
+        <label >Profession</label><br>
+
+        <select class="custom-select form-control" th:field="*{profession}">
+          <option th:value="default">Open this select menu</option>
+          <option th:value="'CEO'" th:text="CEO">CEO</option>
+          <option th:value="'Manager'" th:text="Manager">Manager</option>
+          <option th:value="'Engineer'" th:text="Engineer">Engineer</option>
+          <option th:value="'Labour'" th:text="Labour">Labour</option>
+          <option th:value="'Accounts'" th:text="Accounts">Accounts</option>
+        </select>
+        <p th-if="${#fields.hasErrors('profession'}" th:errors="*{profession}">ss</p>
+      </div>
+      <button type="submit" class="btn btn-primary">Add Employee</button>
+    </form>
+
+  </div>
+</div>
+</body>
+</html>

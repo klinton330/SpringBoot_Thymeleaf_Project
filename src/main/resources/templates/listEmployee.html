@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en"xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>View Employee</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+
+<!-- Example Code -->
+
+<nav class="navbar  bg-dark navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Employee Management Portal</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" aria-current="page" th:href="@{/index}">Home</a>
+                <a class="nav-link" th:href="@{/addEmployee}">Add Employee</a>
+                <a class="nav-link active " href="http://localhost:8082/listEmployee">View Employee</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+<h1 style="text-align: center; margin-bottom: 15px;">Employee Management List</h1>
+
+<div>
+    <div style="display: flex;  align-items: center;justify-content: center;">
+        <div class="col-sm-9 col-md-9 col text-center">
+
+
+            <table class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">
+                        <a th:href="@{'/employee/page/'+${currentPage}+'?sortField=name&sortDir='+${reverseDir}}">
+                        Name
+                        </a>
+                    </th>
+                    <th scope="col">
+                        <a th:href="@{'/employee/page/'+${currentPage}+'?sortField=name&sortDir='+${reverseDir}}">
+                        Email
+                        </a>
+                    </th>
+                    <th scope="col">City</th>
+                    <th scope="col">Profession</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="employee,index: ${allEmployees}">
+                    <td th:text = "${index.index}+1"></td>
+                    <td th:text = "${employee.name}"></td>
+                    <td th:text = "${employee.email}"></td>
+                    <td th:text = "${employee.city}"></td>
+                    <td th:text = "${employee.profession}"></td>
+                    <td>
+                        <a class="btn btn-primary" th:href="@{/employee/edit/{id}(id=${employee.id})}">
+                            Edit
+                        </a>
+
+                        <a  class="btn btn-danger" th:href="@{/employee/delete/{id}(id=${employee.id})}">Delete</a>
+
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+            <div th:if="${totalPages>1}">
+                <div class="row">
+                    <div class="col-sm-10 row">
+                        <div class="col-sm-2">
+                            Total Rows:[[${totalitems}]]
+                        </div>
+                        <div class="col-sm-6">
+                            <span th:each="i: ${#numbers.sequence(1,totalPages)}">
+                                <a th:if="${currentPage!=i}" th:href="@{'/employee/page/'+${i}+'?sortField='+${sortField}+'&sortDir='+${sortDir}}">[[${i}]]</a>
+                                <span th:unless="${currentPage!=i}">[[${i}]]</span> &nbsp;&nbsp;
+                            </span>
+                        </div>
+                        <div class="col-sm-1">
+                            <a th:if="${currentPage<totalPages}" th:href="@{'/employee/page/'+${currentPage+1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}}">Next</a>
+                            <span th:unless="${currentPage<totalPages}">Next</span>
+                        </div>
+                        <div class="col-sm-1">
+                            <a th:if="${currentPage<totalPages}" th:href="@{'/employee/page/'+${totalPages}+'?sortField='+${sortField}+'&sortDir='+${sortDir}}">Last</a>
+                            <span th:unless="${currentPage<totalPages}">Last</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- End Example Code -->
+</body>
+
+</html>
