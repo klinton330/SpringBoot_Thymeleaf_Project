@@ -39,7 +39,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        return super.toString();
+        return name+" "+email+" "+city+" "+profession;
     }
 
 	public long getId() {
@@ -81,6 +81,9 @@ public class Employee {
 	public void setProfession(String profession) {
 		this.profession = profession;
 	}
+
+
+
     
     
 }
